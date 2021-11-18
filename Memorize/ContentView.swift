@@ -8,94 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     var emojis = ["🚂", "🚀", "🚁", "🚜", "🚗", "🚕", "🚌", "🚙", "🏎", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🚞", "🚝", "🚄", "🚅", "🚈", "🚤", "🛥", "🛳"]
-    @State var emojiLowerIndex = 0
-    @State var emojiHigherIndex = 7
+    @State var emojiCount = 20
     
     var body: some View {
         VStack {
             ScrollView {
-                Text("MEMORIZE!")
-                    .font(.largeTitle)
-                    .foregroundColor(Color.blue)
-                    .multilineTextAlignment(.center)
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                    ForEach(emojis[emojiLowerIndex...emojiHigherIndex].shuffled(), id: \.self) { emoji in
+                    ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
                         CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
                     }
                 }
             }
-            HStack {
-                Spacer()
-                xboxButton
-                Spacer()
-                playstationButton
-                Spacer()
-                controllerButton
-                Spacer()
-            }
-            .padding(.horizontal)
-            .font(.largeTitle)
-            .foregroundColor(Color.blue)
+            .foregroundColor(Color.red)
         }
         .padding(.horizontal)
-        .foregroundColor(Color.red)
     }
-    
-// Xbox Button
-    
-    var xboxButton: some View {
-        Button {
-            if emojiLowerIndex != 0 && emojiHigherIndex != 7 {
-                emojiLowerIndex = 0
-                emojiHigherIndex = 7
-            }
-        } label: {
-            VStack {
-                Image(systemName: "logo.xbox")
-                Text("Xbox")
-                    .font(.caption)
-            }
-        }
-        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-    }
-    
-    var playstationButton: some View {
-        Button {
-            if emojiLowerIndex != 8 && emojiHigherIndex != 15 {
-                emojiLowerIndex = 8
-                emojiHigherIndex = 15
-            }
-        } label: {
-            VStack {
-                Image(systemName: "logo.playstation")
-                Text("Playstation")
-                    .font(.caption)
-            }
-            .multilineTextAlignment(.center)
-        }
-        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-    }
-    
-    var controllerButton: some View {
-        Button {
-            if emojiLowerIndex != 16 && emojiHigherIndex != 23 {
-                emojiLowerIndex = 16
-                emojiHigherIndex = 23
-            }
-        } label: {
-            VStack {
-                Image(systemName: "gamecontroller")
-                Text("Controller")
-                    .font(.caption)
-            }
-        }
-        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-    }
-    
 }
-    
+
 struct CardView: View {
     var content: String
     @State var isFaceUp: Bool = true
@@ -122,15 +52,10 @@ struct CardView: View {
 
 
 
-
-
-
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
-.previewInterfaceOrientation(.portrait)
         ContentView()
             .preferredColorScheme(.light)
     }
